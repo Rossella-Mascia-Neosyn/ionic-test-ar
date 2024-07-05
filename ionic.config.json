@@ -1,0 +1,7 @@
+{
+  "name": "boilerplate-ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
