@@ -5,7 +5,7 @@ import UnityWebgl from './UnityWebgl/UnityWebgl';
 import MindARViewer from './Ar/Ar.jsx'
 import { useEffect, useState } from 'react';
 import { Browser } from '@capacitor/browser';
-import { StatusBar } from '@capacitor/status-bar';
+import { StatusBar, Style } from '@capacitor/status-bar';
 interface ContainerProps {
   name: string;
 }
@@ -17,13 +17,34 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
     await Browser.open({ url: 'https://hiukim.github.io/mind-ar-js-doc/samples/minimal.html' });
   };
 
+  // Display content under transparent status bar (Android only)
+  StatusBar.setOverlaysWebView({ overlay: true });
+
+  const setStatusBarStyleDark = async () => {
+    await StatusBar.setStyle({ style: Style.Dark });
+  };
+
+  const setStatusBarStyleLight = async () => {
+    await StatusBar.setStyle({ style: Style.Light });
+  };
+
+  const hideStatusBar = async () => {
+    await StatusBar.hide();
+  };
+
+  const showStatusBar = async () => {
+    await StatusBar.show();
+  };
+
   useEffect(() => {
     Browser.addListener('browserPageLoaded', () => {
-      console.log('call');
-      window.matchMedia(
-        '(display-mode: standalone)'
-      ).matches
+      // setStatusBarStyleDark()
+      setStatusBarStyleLight()
+      hideStatusBar()
+      // showStatusBar()
     })
+    setStatusBarStyleLight()
+    hideStatusBar()
   }, [])
   return (
     <div id="container">

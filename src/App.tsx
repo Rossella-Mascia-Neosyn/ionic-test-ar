@@ -1,4 +1,4 @@
-import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react';
+import { IonApp, IonButton, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
@@ -34,15 +34,32 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import MyThree from './components/MyThree/MyThree';
+import { useTenant } from './context/Tentant';
+import { useEffect } from 'react';
+import tenants from '../tenants.json';
 
 setupIonicReact();
 
 const App: React.FC = () => {
+  const { tenant, setTenant } = useTenant();
+
+  useEffect(() => {
+    // Simula il caricamento del tenant dalla URL
+    const tenantId = 'tenant2'; // Questo dovrebbe essere dinamico
+    const tenantData = tenants[tenantId];
+    setTenant(tenantData);
+  }, [setTenant]);
+
+  if (!tenant) {
+    return <div>Loading...</div>;
+  }
   return (
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main">
           <Menu />
+          <img src={tenant.logo} style={{ height: '20%', width: 'auto' }} />
+          <IonButton color="success" > ciao</IonButton>
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
               <Redirect to="/folder/Inbox" />

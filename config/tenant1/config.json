@@ -1,0 +1,29 @@
+{
+    "logo": "assets/logo/logo1.png",
+    "colors" : {
+        "primary": {
+            "color": "#141B57",
+            "rgb": "20,27,87",
+            "contrast": "#ffffff",
+            "contrastRgb": "255,255,255",
+            "shade": "#12184d",
+            "tint": "#2c3268"
+        },
+        "secondary": {
+            "color": "#F63911",
+            "rgb": "246,57,17",
+            "contrast": "#000000",
+            "contrastRgb": "0,0,0",
+            "shade": "#d8320f",
+            "tint": "#f74d29"
+        },
+        "tertiary": {
+            "color": "#9197B3",
+            "rgb": "145,151,179",
+            "contrast": "#000000",
+            "contrastRgb": "0,0,0",
+            "shade": "#80859e",
+            "tint": "#9ca1bb"
+        }
+    }
+}
