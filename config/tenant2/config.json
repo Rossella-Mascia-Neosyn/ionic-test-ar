@@ -1,9 +1,8 @@
 {
-    "logo": "assets/logo/logo1.png",
-    "favicon": "assets/favicon/tenant1/favicon.png",
+    "logo": "assets/logo/logo2.png",
     "colors" : {
         "primary": {
-            "color": "#141B57",
+            "color": "#e45723",
             "rgb": "20,27,87",
             "contrast": "#ffffff",
             "contrastRgb": "255,255,255",

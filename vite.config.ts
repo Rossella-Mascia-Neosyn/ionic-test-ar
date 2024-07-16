@@ -10,7 +10,14 @@ export default defineConfig({
   plugins: [
     react(),
     legacy(),
-    VitePWA({ registerType: 'autoUpdate' })
+    VitePWA({ 
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+      },
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      manifest: false,
+  })
   ],
   test: {
     globals: true,

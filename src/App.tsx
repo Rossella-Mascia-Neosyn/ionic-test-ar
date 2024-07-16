@@ -3,6 +3,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import Page from './pages/Page';
+import './theme/tailwind.css'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -32,39 +33,51 @@ import '@ionic/react/css/display.css';
 import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
-import './theme/variables.css';
+// import './theme/variables.css';
 import MyThree from './components/MyThree/MyThree';
 import { useTenant } from './context/Tentant';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import tenants from '../tenants.json';
 
 setupIonicReact();
 
-const App: React.FC = () => {
-  const { tenant, setTenant } = useTenant();
+const App: React.FC<{ tenantName: string }> = ({ tenantName }) => {
+  useLayoutEffect(() => {
+    if (!tenantName) return;
+    // Dynamically import the theme CSS file
+    import(`../tenant/${tenantName}/style/variables.css`)
+      .then(() => {
+        try {
+          // do stuff after
+          // setVisible(true);
+          console.warn("stuff success.");
 
-  useEffect(() => {
-    // Simula il caricamento del tenant dalla URL
-    const tenantId = 'tenant2'; // Questo dovrebbe essere dinamico
-    const tenantData = tenants[tenantId];
-    setTenant(tenantData);
-  }, [setTenant]);
+        } catch (e) {
+          console.warn("stuff failed.");
+        }
+      })
+      .catch((err) => {
+        console.warn("Failed CSS import: ", err);
+      });
+  }, [tenantName]);
 
-  if (!tenant) {
-    return <div>Loading...</div>;
-  }
+
+  // if (!tenant) {
+  //   return <div>Loading...</div>;
+  // }
   return (
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main">
           <Menu />
-          <img src={tenant.logo} style={{ height: '20%', width: 'auto' }} />
-          <IonButton color="success" > ciao</IonButton>
+          <img src={`../tenant/${tenantName}/assets/logo.png`} style={{ height: '20%', width: 'auto' }} />
+          <button className='bg-primary'>tailwind</button>
+          <IonButton color="primary">ciao</IonButton>
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
-              <Redirect to="/folder/Inbox" />
+              <Redirect to="/museo/Inbox" />
             </Route>
-            <Route path="/folder/:name" exact={true}>
+            <Route path="/museo/:name" exact={true}>
               <Page />
             </Route>
           </IonRouterOutlet>

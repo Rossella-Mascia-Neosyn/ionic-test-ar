@@ -10,7 +10,7 @@
     "test.e2e": "cypress run",
     "test.unit": "vitest",
     "lint": "eslint",
-    "generate-css": "cd ./scripts && ts-node-esm generate-theme.ts"
+    "generate-css": "cd ./scripts && ts-node-esm generate-theme.ts tenant2"
   },
   "dependencies": {
     "@ar-js-org/ar.js": "^3.4.5",
@@ -31,6 +31,7 @@
     "mind-ar": "^1.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "three": "^0.166.1"

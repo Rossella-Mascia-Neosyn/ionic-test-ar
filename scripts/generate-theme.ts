@@ -41,7 +41,7 @@ function generateCSS(config: BrandConfig) {
 const cssContent = generateCSS(config);
 
 // Path to save the generated CSS file
-const outputPath = '../src/theme/variables.css';
+const outputPath = `../src/theme/${tenantConfigPath}.css`;
 
 // Write content to CSS file
 fs.writeFile(outputPath, cssContent, err => {
