@@ -14,7 +14,7 @@ const app = () => {
         <HelmetProvider>
           <Helmet>
             <title>{pathname}</title>
-            <link rel="canonical" href="https://www.tacobell.com/" />
+            <link rel="canonical" href="https://www.localhost.com/" />
 
             <meta name="color-scheme" content="light dark" />
             <meta

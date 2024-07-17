@@ -3,7 +3,6 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import Page from './pages/Page';
-import './theme/tailwind.css'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -31,13 +30,13 @@ import '@ionic/react/css/display.css';
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
 import '@ionic/react/css/palettes/dark.system.css';
+import './theme/tailwind.css';
 
 /* Theme variables */
 // import './theme/variables.css';
 import MyThree from './components/MyThree/MyThree';
 import { useTenant } from './context/Tentant';
 import { useEffect, useLayoutEffect } from 'react';
-import tenants from '../tenants.json';
 
 setupIonicReact();
 
@@ -61,17 +60,24 @@ const App: React.FC<{ tenantName: string }> = ({ tenantName }) => {
       });
   }, [tenantName]);
 
-
-  // if (!tenant) {
-  //   return <div>Loading...</div>;
-  // }
   return (
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main">
           <Menu />
           <img src={`../tenant/${tenantName}/assets/logo.png`} style={{ height: '20%', width: 'auto' }} />
-          <button className='bg-primary'>tailwind</button>
+          <button className='bg-primary rounded'>tailwind</button>
+          <div className="flex">
+            <div className="w-14">
+              01
+            </div>
+            <div className="flex-initial w-64">
+              02
+            </div>
+            <div className="flex-initial w-32">
+              03
+            </div>
+          </div>
           <IonButton color="primary">ciao</IonButton>
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
