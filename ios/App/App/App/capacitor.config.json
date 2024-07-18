@@ -1,0 +1,19 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "boilerplate-ionic",
+	"webDir": "dist",
+	"android": {
+		"flavor": "neosyn"
+	},
+	"ios": {
+		"path": "ios/App",
+		"scheme": "Neosyn"
+	},
+	"packageClassList": [
+		"AppPlugin",
+		"CAPBrowserPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"StatusBarPlugin"
+	]
+}

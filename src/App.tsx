@@ -1,4 +1,4 @@
-import { IonApp, IonButton, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react';
+import { IonApp, IonButton, IonRouterOutlet, IonSplitPane, isPlatform, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
@@ -39,25 +39,51 @@ import { useTenant } from './context/Tentant';
 import { useEffect, useLayoutEffect } from 'react';
 
 setupIonicReact();
+import { App as CapacitorApp } from '@capacitor/app';
+const App: React.FC<{ tenantName: string }> = ({ tenantName = "neosyn" }) => {
+  const { setTenant, tenantName: tenantNameContext } = useTenant()
 
-const App: React.FC<{ tenantName: string }> = ({ tenantName }) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
+    const isMobile = isPlatform('mobile')
+    if (isMobile) {
+      CapacitorApp.getInfo().then(appInfo => {
+        const tenantApp = appInfo.id.split('.')[2];
+        setTenant(tenantApp)
+        import(`../tenant/${tenantApp}/style/variables.css`)
+          .then(() => {
+            try {
+              // do stuff after
+              // setVisible(true);
+              console.warn("stuff success.");
+
+            } catch (e) {
+              console.warn("stuff failed.");
+            }
+          })
+          .catch((err) => {
+            console.warn("Failed CSS import: ", err);
+          });
+        console.log(appInfo.id)
+      }).catch(error => console.error(error))
+    } else {
     if (!tenantName) return;
-    // Dynamically import the theme CSS file
-    import(`../tenant/${tenantName}/style/variables.css`)
-      .then(() => {
-        try {
-          // do stuff after
-          // setVisible(true);
-          console.warn("stuff success.");
+      setTenant(tenantName)
+      // Dynamically import the theme CSS file
+      import(`../tenant/${tenantName}/style/variables.css`)
+        .then(() => {
+          try {
+            // do stuff after
+            // setVisible(true);
+            console.warn("stuff success.");
 
-        } catch (e) {
-          console.warn("stuff failed.");
-        }
+          } catch (e) {
+            console.warn("stuff failed.");
+          }
       })
-      .catch((err) => {
-        console.warn("Failed CSS import: ", err);
-      });
+        .catch((err) => {
+          console.warn("Failed CSS import: ", err);
+        });
+    }
   }, [tenantName]);
 
   return (
@@ -65,8 +91,8 @@ const App: React.FC<{ tenantName: string }> = ({ tenantName }) => {
       <IonReactRouter>
         <IonSplitPane contentId="main">
           <Menu />
-          <img src={`../tenant/${tenantName}/assets/logo.png`} style={{ height: '20%', width: 'auto' }} />
-          <button className='bg-primary rounded'>tailwind</button>
+          <img src={`tenant/${tenantNameContext}/assets/logo.png`} style={{ height: '20%', width: 'auto' }} />
+          <button className='bg-primary rounded'>tailwinds</button>
           <div className="flex">
             <div className="w-14">
               01
